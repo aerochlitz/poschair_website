@@ -1,28 +1,30 @@
 <template>
   <div id="app">
-        <Child></Child>
+        <Chair></Chair>
   </div>
 </template>
 
 <script lang="ts">
 import Vue from 'vue';
 import Component from 'vue-class-component';
-import Child from './components/Component.vue';
+import Chair from './components/Chair.vue';
 import data,{ SIGNALS } from './services/websocket';
 
 @Component({
   components: {
-    Child
+    Chair
   },
 })
 export default class App extends Vue {
   constructor() {
     super();
     data.register(SIGNALS.ERROR, this.error);
+    data.request('Test');
   }
 
   private error(msg: string) {
     alert(msg);
+    console.log(msg);
   }
 }
 </script>

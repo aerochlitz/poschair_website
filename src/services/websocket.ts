@@ -14,7 +14,7 @@ export const SIGNALS = {
 };
 
 class DataService {
-    private ws: WebSocket = new WebSocket('ws://localhost:8080'); // Server path
+    private ws: WebSocket = new WebSocket('ws://192.168.0.21:8080'); // Server path
     private connected: Promise<any> = Promise.resolve();
 
     private callbacks: { [key: string]: Array<(...params: any[]) => void> } = {};
@@ -31,6 +31,7 @@ class DataService {
         this.send(ENDPOINTS.REQUEST, data);
     }
 
+    // do something when the backend sends a signal. For example on error
     public register = (key: string, callback: (...params: any[]) => void) => {
         if (!this.callbacks[key]) {
             this.callbacks[key] = [];

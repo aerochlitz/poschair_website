@@ -1,6 +1,6 @@
 <template>
     <div>
-        Hello World!
+        Hello Morgan!
     </div>
 </template>
 
@@ -9,7 +9,7 @@ import Vue from 'vue';
 import Component from 'vue-class-component';
 
 @Component({})
-export default class Child extends Vue {
+export default class Chair extends Vue {
 }
 </script>
 

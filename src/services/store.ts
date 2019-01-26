@@ -5,8 +5,10 @@ import { getStoreAccessors } from "vuex-typescript";
 
 interface RootState { }
 
+// variables
 const state: RootState = { };
 
+// stuff that alters the state
 const mutations = { 
     mutate(state: RootState, index: number) {
         return;
@@ -19,6 +21,7 @@ const getters = {
     }
 };
 
+// don;t change state, they can be async
 const actions = { 
     action(context: ActionContext<RootState, RootState>, params: { thing: number, stuff: string }) {
 
