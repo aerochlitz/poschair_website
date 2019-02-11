@@ -4,6 +4,17 @@ interface Message {
     body: any;
 }
 
+export interface SensorData {
+    bTopL: number;
+    bTopR: number;
+    bBtmL: number;
+    bBtmR: number;
+    sTopL: number;
+    sTopR: number;
+    sBtmL: number;
+    sBtmR: number;
+}
+
 export const ENDPOINTS = {
     CONNECT: 'connection',
     REQUEST: 'request'
