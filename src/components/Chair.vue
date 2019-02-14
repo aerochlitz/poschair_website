@@ -3,61 +3,67 @@
     <img class="chair-pic" src="public/chair_crop.jpg" alt="Chair">
     <div class="sensor-grid">
       <div class="row">
-        <div class="col">o</div>
-      </div>
-      <div class="row">
-        <div class="col">o</div>
-      </div>
-      <div class="row">
-        <div class="col">o</div>
+        <div class="col"></div>
+        <div class="col"></div>
+        <div class="col"></div>
         <div class="col"></div>
         <div class="col"></div>
         <div class="col" v-bind:style="getColor(sensorData.bTopL)"></div>
         <div class="col"></div>
         <div class="col" v-bind:style="getColor(sensorData.bTopR)"></div>
         <div class="col"></div>
+        <div class="col"></div>
       </div>
       <div class="row">
-        <div class="col">o</div>
+        <div class="col"></div>
       </div>
       <div class="row">
-        <div class="col">o</div>
+        <div class="col"></div>
+      </div>
+      <div class="row">
+        <div class="col"></div>
+      </div>
+      <div class="row">
+        <div class="col"></div>
+      </div>
+      <div class="row">
+        <div class="col"></div>
+        <div class="col"></div>
+        <div class="col"></div>
         <div class="col"></div>
         <div class="col"></div>
         <div class="col" v-bind:style="getColor(sensorData.bBtmL)"></div>
         <div class="col"></div>
         <div class="col" v-bind:style="getColor(sensorData.bBtmR)"></div>
         <div class="col"></div>
+        <div class="col"></div>
       </div>
       <div class="row">
-        <div class="col">o</div>
+        <div class="col"></div>
       </div>
       <div class="row">
-        <div class="col">o</div>
+        <div class="col"></div>
+        <div class="col"></div>
         <div class="col"></div>
         <div class="col" v-bind:style="getColor(sensorData.sTopL)"></div>
+        <div class="col"></div>
+        <div class="col"></div>
         <div class="col"></div>
         <div class="col" v-bind:style="getColor(sensorData.sTopR)"></div>
         <div class="col"></div>
         <div class="col"></div>
       </div>
       <div class="row">
-        <div class="col">o</div>
+        <div class="col"></div>
+        <div class="col"></div>
         <div class="col" v-bind:style="getColor(sensorData.sBtmL)"></div>
+        <div class="col"></div>
+        <div class="col"></div>
         <div class="col"></div>
         <div class="col" v-bind:style="getColor(sensorData.sBtmR)"></div>
         <div class="col"></div>
         <div class="col"></div>
         <div class="col"></div>
-      </div>
-      <div class="row">
-        <div class="col">o</div>
-      </div>
-      <div class="row">
-        <div class="col">o</div>
-      </div>
-      <div class="row">
-        <div class="col">o</div>
       </div>
     </div>
   </div>
@@ -100,26 +106,32 @@ export default class Chair extends Vue {
   private getColor(sensorVal: number) {
     return `background: rgba(114, 0, 255, ${sensorVal / 100})`;
   }
-
 }
 </script>
 
 <style>
-
 .sensor-grid {
   position: absolute;
-  top: 0px;
+  top: 20px;
   left: 0px;
+  width: 310px;
+  align-items: stretch;
 }
 
-td {
-  border: 1px solid black;
-  text-align: center;
-  padding: 20px;
+.row {
+  height: 40px;
+}
+
+.col {
+    border-radius: 100px;
+
 }
 
 .chair-box {
   position: relative;
+  min-width: 400px;
+  width: 100% !important;
+  width: 400px;
 }
 </style>
 
