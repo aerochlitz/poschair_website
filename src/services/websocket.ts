@@ -15,9 +15,22 @@ export interface SensorData {
     sBtmR: number;
 }
 
+export enum VibrationType {
+    short = "short",
+    long = "long",
+    beep = "beep"
+  }
+  
+export interface Settings {
+    vibrationType: VibrationType;
+    timeInterval: number;
+  }
+  
+
 export const ENDPOINTS = {
     CONNECT: 'connection',
-    REQUEST: 'request'
+    GET_SETTINGS: 'getSettings',
+    SET_SETTINGS: 'setSettings'
 };
 
 export const SIGNALS = {
@@ -25,7 +38,7 @@ export const SIGNALS = {
 };
 
 class DataService {
-    private ws: WebSocket = new WebSocket('ws://192.168.0.21:8080'); // Server path
+    private ws: WebSocket = new WebSocket('ws://localhost:8080'); // Server path
     private connected: Promise<any> = Promise.resolve();
 
     private callbacks: { [key: string]: Array<(...params: any[]) => void> } = {};
@@ -37,9 +50,12 @@ class DataService {
         this.ws.onmessage = this.alert;
     }
 
-    // A General Request
-    public request = (data: string) => {
-        this.send(ENDPOINTS.REQUEST, data);
+    public getSettings = () => {
+        return this.send(ENDPOINTS.GET_SETTINGS);
+    }
+
+    public setSettings = (settings: Settings) => {
+        return this.send(ENDPOINTS.SET_SETTINGS, settings);
     }
 
     // do something when the backend sends a signal. For example on error
