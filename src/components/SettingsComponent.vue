@@ -32,7 +32,11 @@
                   for="inputGroupSelectPostureInterval"
                 >Posture check interval:</label>
               </div>
-              <select v-model="settings.timeInterval" class="custom-select" id="inputGroupSelectPostureInterval">
+              <select
+                v-model="settings.timeInterval"
+                class="custom-select"
+                id="inputGroupSelectPostureInterval"
+              >
                 <option selected>Choose new</option>
                 <option value="30000">30 seconds</option>
                 <option value="60000">1 minute</option>
@@ -47,18 +51,40 @@
                   for="inputGroupSelectVibration"
                 >Motor vibration type:</label>
               </div>
-              <select v-model="settings.vibrationType" class="custom-select" id="inputGroupSelectVibration">
+              <select
+                v-model="settings.vibrationType"
+                class="custom-select"
+                id="inputGroupSelectVibration"
+              >
                 <option selected>Choose new</option>
-                <option value="short">Short</option>
-                <option value="long">Long</option>
-                <option value="beep">beep-beep-beep</option>
+                <option value="Short">Short</option>
+                <option value="Long">Long</option>
               </select>
             </div>
-            <p>Potentially add snooze</p>
+            <button
+              v-on:click="recalibrate()"
+              type="button"
+              class="btn btn-outline-primary btn-block"
+            >Re-calibrate sensors</button>
+            <button
+              v-on:click="snooze()"
+              type="button"
+              class="btn btn-outline-primary btn-block"
+            >Snooze</button>
+            <button
+              v-on:click="shutdown()"
+              type="button"
+              class="btn btn-outline-primary btn-block"
+            >Shut down</button>
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>
-            <button v-on:click="setSettings()" type="button" class="btn btn-success" data-dismiss="modal">Save</button>
+            <button
+              v-on:click="setSettings()"
+              type="button"
+              class="btn btn-success"
+              data-dismiss="modal"
+            >Save</button>
           </div>
         </div>
       </div>
@@ -77,10 +103,9 @@ import data, {
 
 @Component({})
 export default class SettingsComponent extends Vue {
-
   private settings: Settings = {
-    vibrationType: VibrationType.beep,
-    timeInterval: 60 //seconds
+    vibrationType: VibrationType.long,
+    timeInterval: 60000 //seconds
   };
 
   constructor() {
@@ -98,6 +123,19 @@ export default class SettingsComponent extends Vue {
 
   private setSettings() {
     data.setSettings(this.settings);
+  }
+
+  private snooze() {
+    data.snooze();
+    // unsnooze lol??
+  }
+
+  private recalibrate() {
+    data.recalibrate();
+  }
+
+  private shutdown() {
+    data.shutdown();
   }
 }
 </script>

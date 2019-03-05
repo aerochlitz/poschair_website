@@ -16,9 +16,8 @@ export interface SensorData {
 }
 
 export enum VibrationType {
-    short = "short",
-    long = "long",
-    beep = "beep"
+    short = "Short",
+    long = "Long"
   }
   
 export interface Settings {
@@ -30,7 +29,10 @@ export interface Settings {
 export const ENDPOINTS = {
     CONNECT: 'connection',
     GET_SETTINGS: 'getSettings',
-    SET_SETTINGS: 'setSettings'
+    SET_SETTINGS: 'setSettings',
+    SNOOZE: 'snooze',
+    RECALIBRATE: 'recalibrate',
+    SHUTDOWN: 'shutdown'
 };
 
 export const SIGNALS = {
@@ -56,6 +58,18 @@ class DataService {
 
     public setSettings = (settings: Settings) => {
         return this.send(ENDPOINTS.SET_SETTINGS, settings);
+    }
+
+    public snooze = () => {
+        return this.send(ENDPOINTS.SNOOZE);
+    }
+
+    public recalibrate = () => {
+        return this.send(ENDPOINTS.RECALIBRATE);
+    }
+
+    public shutdown = () => {
+        return this.send(ENDPOINTS.SHUTDOWN);
     }
 
     // do something when the backend sends a signal. For example on error

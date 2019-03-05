@@ -78,33 +78,37 @@ import { SensorData } from "../services/websocket";
 /* b: back, s: seat */
 export default class Chair extends Vue {
   private sensorData: SensorData = {
-    bTopL: 10,
-    bTopR: 10,
-    bBtmL: 10,
-    bBtmR: 10,
-    sTopL: 10,
-    sTopR: 10,
-    sBtmL: 10,
-    sBtmR: 10
+    bTopL: 0,
+    bTopR: 0,
+    bBtmL: 0,
+    bBtmR: 0,
+    sTopL: 0,
+    sTopR: 0,
+    sBtmL: 0,
+    sBtmR: 0
   };
 
   constructor() {
     super();
 
     setTimeout(() => {
-      this.sensorData.bTopL = 80;
-      this.sensorData.bTopR = 60;
-      this.sensorData.bBtmL = 70;
-      this.sensorData.bBtmR = 50;
-      this.sensorData.sTopL = 100;
-      this.sensorData.sTopR = 80;
-      this.sensorData.sBtmL = 90;
-      this.sensorData.sBtmR = 50;
+      this.sensorData.bTopL = 1;
+      this.sensorData.bTopR = 1;
+      this.sensorData.bBtmL = 0;
+      this.sensorData.bBtmR = 0;
+      this.sensorData.sTopL = 0;
+      this.sensorData.sTopR = 0;
+      this.sensorData.sBtmL = 1;
+      this.sensorData.sBtmR = 1;
     }, 3000);
   }
 
   private getColor(sensorVal: number) {
-    return `background: rgba(114, 0, 255, ${sensorVal / 100})`;
+    if (sensorVal == 1) {
+      return `background: rgb(0, 255, 0)`;
+    } else {
+      return `background: rgb(255, 0, 0)`;
+    }
   }
 }
 </script>
