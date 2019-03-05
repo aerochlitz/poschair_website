@@ -100,7 +100,7 @@ export default class Chair extends Vue {
       this.sensorData.sTopR = 0;
       this.sensorData.sBtmL = 1;
       this.sensorData.sBtmR = 1;
-    }, 3000);
+    }, 1000);
   }
 
   private getColor(sensorVal: number) {

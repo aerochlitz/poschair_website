@@ -70,7 +70,7 @@
               v-on:click="snooze()"
               type="button"
               class="btn btn-outline-primary btn-block"
-            >Snooze</button>
+            >{{ getSnoozeText() }}</button>
             <button
               v-on:click="shutdown()"
               type="button"
@@ -105,7 +105,8 @@ import data, {
 export default class SettingsComponent extends Vue {
   private settings: Settings = {
     vibrationType: VibrationType.long,
-    timeInterval: 60000 //seconds
+    timeInterval: 60000, //seconds
+    isSnoozed: false
   };
 
   constructor() {
@@ -125,9 +126,17 @@ export default class SettingsComponent extends Vue {
     data.setSettings(this.settings);
   }
 
+  private getSnoozeText() {
+    if (this.settings.isSnoozed) {
+      return "Wake up!!";
+    } else {
+      return "Snooze";
+    }
+  }
+
   private snooze() {
-    data.snooze();
-    // unsnooze lol??
+    data.snooze(this.settings.isSnoozed);
+    data.getSettings();
   }
 
   private recalibrate() {

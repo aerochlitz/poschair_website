@@ -23,6 +23,7 @@ export enum VibrationType {
 export interface Settings {
     vibrationType: VibrationType;
     timeInterval: number;
+    isSnoozed: boolean;
   }
   
 
@@ -60,8 +61,8 @@ class DataService {
         return this.send(ENDPOINTS.SET_SETTINGS, settings);
     }
 
-    public snooze = () => {
-        return this.send(ENDPOINTS.SNOOZE);
+    public snooze = (isSnoozed: boolean) => {
+        return this.send(ENDPOINTS.SNOOZE, isSnoozed);
     }
 
     public recalibrate = () => {
