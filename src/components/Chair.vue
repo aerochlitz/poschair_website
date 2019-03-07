@@ -72,24 +72,16 @@
 <script lang="ts">
 import Vue from "vue";
 import Component from "vue-class-component";
-import { SensorData } from "../services/websocket";
+import data, { SIGNALS, SensorData } from "../services/websocket";
 
 @Component({})
 /* b: back, s: seat */
 export default class Chair extends Vue {
-  private sensorData: SensorData = {
-    bTopL: 0,
-    bTopR: 0,
-    bBtmL: 0,
-    bBtmR: 0,
-    sTopL: 0,
-    sTopR: 0,
-    sBtmL: 0,
-    sBtmR: 0
-  };
+
 
   constructor() {
     super();
+    data.register(SIGNALS.SENSOR_DATA, this.sensorString);
 
     setTimeout(() => {
       this.sensorData.bTopL = 1;
@@ -101,6 +93,34 @@ export default class Chair extends Vue {
       this.sensorData.sBtmL = 1;
       this.sensorData.sBtmR = 1;
     }, 1000);
+  }
+
+  private sensorString(sData: string) {
+    console.log(sData);
+    this.parseSensorData(sData);
+  }
+
+  private sensorData: SensorData = {
+    bTopL: 0,
+    bTopR: 0,
+    bBtmL: 0,
+    bBtmR: 0,
+    sTopL: 0,
+    sTopR: 0,
+    sBtmL: 0,
+    sBtmR: 0
+  };
+
+  private parseSensorData(sData: string) {
+    var parsedString = sData.split(" ", 8);
+    this.sensorData.bTopL = Number(parsedString[0]);
+    this.sensorData.bTopR = Number(parsedString[1]);
+    this.sensorData.bBtmL = Number(parsedString[2]);
+    this.sensorData.bBtmR = Number(parsedString[3]);
+    this.sensorData.sTopL = Number(parsedString[4]);
+    this.sensorData.sTopR = Number(parsedString[5]);
+    this.sensorData.sBtmL = Number(parsedString[6]);
+    this.sensorData.sBtmR = Number(parsedString[7]);
   }
 
   private getColor(sensorVal: number) {
