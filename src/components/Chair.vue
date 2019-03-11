@@ -83,16 +83,16 @@ export default class Chair extends Vue {
     super();
     data.register(SIGNALS.SENSOR_DATA, this.sensorString);
 
-    setTimeout(() => {
-      this.sensorData.bTopL = 1;
-      this.sensorData.bTopR = 1;
-      this.sensorData.bBtmL = 0;
-      this.sensorData.bBtmR = 0;
-      this.sensorData.sTopL = 0;
-      this.sensorData.sTopR = 0;
-      this.sensorData.sBtmL = 1;
-      this.sensorData.sBtmR = 1;
-    }, 1000);
+    // setTimeout(() => {
+    //   this.sensorData.bTopL = 1;
+    //   this.sensorData.bTopR = 1;
+    //   this.sensorData.bBtmL = 0;
+    //   this.sensorData.bBtmR = 0;
+    //   this.sensorData.sTopL = 0;
+    //   this.sensorData.sTopR = 0;
+    //   this.sensorData.sBtmL = 1;
+    //   this.sensorData.sBtmR = 1;
+    // }, 1000);
   }
 
   private sensorString(sData: string) {
@@ -101,33 +101,35 @@ export default class Chair extends Vue {
   }
 
   private sensorData: SensorData = {
-    bTopL: 0,
-    bTopR: 0,
-    bBtmL: 0,
-    bBtmR: 0,
-    sTopL: 0,
-    sTopR: 0,
-    sBtmL: 0,
-    sBtmR: 0
+    bTopL: 2,
+    bTopR: 2,
+    bBtmL: 2,
+    bBtmR: 2,
+    sTopL: 2,
+    sTopR: 2,
+    sBtmL: 2,
+    sBtmR: 2
   };
 
   private parseSensorData(sData: string) {
     var parsedString = sData.split(" ", 8);
-    this.sensorData.bTopL = Number(parsedString[0]);
-    this.sensorData.bTopR = Number(parsedString[1]);
-    this.sensorData.bBtmL = Number(parsedString[2]);
-    this.sensorData.bBtmR = Number(parsedString[3]);
-    this.sensorData.sTopL = Number(parsedString[4]);
-    this.sensorData.sTopR = Number(parsedString[5]);
-    this.sensorData.sBtmL = Number(parsedString[6]);
-    this.sensorData.sBtmR = Number(parsedString[7]);
+    this.sensorData.bTopL = Number(parsedString[5]);
+    this.sensorData.bTopR = Number(parsedString[4]);
+    this.sensorData.bBtmL = Number(parsedString[7]);
+    this.sensorData.bBtmR = Number(parsedString[6]);
+    this.sensorData.sTopL = Number(parsedString[2]);
+    this.sensorData.sTopR = Number(parsedString[3]);
+    this.sensorData.sBtmL = Number(parsedString[0]);
+    this.sensorData.sBtmR = Number(parsedString[1]);
   }
 
   private getColor(sensorVal: number) {
-    if (sensorVal == 1) {
+    if (sensorVal == 1) { // green
       return `background: rgb(0, 255, 0)`;
-    } else {
+    } else if (sensorVal == 0) { // red
       return `background: rgb(255, 0, 0)`;
+    } else { // gray
+      return `background: rgb(128, 128, 128)`;
     }
   }
 }

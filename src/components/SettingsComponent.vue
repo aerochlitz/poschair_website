@@ -41,19 +41,19 @@
               </select>
             </div>
             <button
+              v-on:click="snooze(30)"
+              type="button"
+              class="btn btn-primary btn-block"
+            >Snooze: 30 seconds</button>
+            <button
               v-on:click="recalibrate()"
               type="button"
-              class="btn btn-outline-primary btn-block"
+              class="btn btn-primary btn-block"
             >Re-calibrate sensors</button>
-            <button
-              v-on:click="snooze()"
-              type="button"
-              class="btn btn-outline-primary btn-block"
-            >Snooze</button>
             <button
               v-on:click="shutdown()"
               type="button"
-              class="btn btn-outline-primary btn-block"
+              class="btn btn-primary btn-block"
             >Shut down</button>
           </div>
           <div class="modal-footer">
@@ -103,7 +103,14 @@ export default class SettingsComponent extends Vue {
     data.setInterval(this.settings.timeInterval);
   }
 
-  private snooze() {}
+  private snooze(sleepyTime: number) {
+    data.snooze(sleepyTime);
+    // dismiss modal and disable Settings button
+
+  setTimeout(() => {
+      // enable Settings button
+    }, sleepyTime*1000);
+  }
 
   private recalibrate() {
     data.recalibrate();
