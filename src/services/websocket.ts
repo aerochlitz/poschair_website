@@ -21,16 +21,14 @@ export enum VibrationType {
   }
   
 export interface Settings {
-    vibrationType: VibrationType;
     timeInterval: number;
-    isSnoozed: boolean;
   }
   
 
 export const ENDPOINTS = {
     CONNECT: 'connection',
-    GET_SETTINGS: 'getSettings',
-    SET_SETTINGS: 'setSettings',
+    GET_INTERVAL: 'getInterval',
+    SET_INTERVAL: 'setInterval',
     SNOOZE: 'snooze',
     RECALIBRATE: 'recalibrate',
     SHUTDOWN: 'shutdown'
@@ -54,16 +52,16 @@ class DataService {
         this.ws.onmessage = this.alert;
     }
 
-    public getSettings = () => {
-        return this.send(ENDPOINTS.GET_SETTINGS);
+    public getInterval = () => {
+        return this.send(ENDPOINTS.GET_INTERVAL);
     }
 
-    public setSettings = (settings: Settings) => {
-        return this.send(ENDPOINTS.SET_SETTINGS, settings);
+    public setInterval = (interval: number) => {
+        return this.send(ENDPOINTS.SET_INTERVAL, interval);
     }
 
-    public snooze = (isSnoozed: boolean) => {
-        return this.send(ENDPOINTS.SNOOZE, isSnoozed);
+    public snooze = (snoozeTime: number) => {
+        return this.send(ENDPOINTS.SNOOZE, snoozeTime);
     }
 
     public recalibrate = () => {

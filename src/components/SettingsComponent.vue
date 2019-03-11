@@ -1,13 +1,12 @@
 <template>
   <div class="settings-box">
     <button
-      v-on:click="getSettings()"
+      v-on:click="getInterval()"
       type="button"
       class="btn btn-primary"
       data-toggle="modal"
       data-target="#settingsModal"
     >Settings</button>
-
     <div
       class="modal fade"
       id="settingsModal"
@@ -37,28 +36,8 @@
                 class="custom-select"
                 id="inputGroupSelectPostureInterval"
               >
-                <option selected>Choose new</option>
-                <option value="30000">30 seconds</option>
-                <option value="60000">1 minute</option>
-                <option value="120000">2 minutes</option>
-                <option value="300000">5 minutes</option>
-              </select>
-            </div>
-            <div class="input-group mb-3">
-              <div class="input-group-prepend">
-                <label
-                  class="input-group-text"
-                  for="inputGroupSelectVibration"
-                >Motor vibration type:</label>
-              </div>
-              <select
-                v-model="settings.vibrationType"
-                class="custom-select"
-                id="inputGroupSelectVibration"
-              >
-                <option selected>Choose new</option>
-                <option value="Short">Short</option>
-                <option value="Long">Long</option>
+                <option value="15">15 seconds</option>
+                <option value="30">30 seconds</option>
               </select>
             </div>
             <button
@@ -70,7 +49,7 @@
               v-on:click="snooze()"
               type="button"
               class="btn btn-outline-primary btn-block"
-            >{{ getSnoozeText() }}</button>
+            >Snooze</button>
             <button
               v-on:click="shutdown()"
               type="button"
@@ -80,7 +59,7 @@
           <div class="modal-footer">
             <button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>
             <button
-              v-on:click="setSettings()"
+              v-on:click="setInterval()"
               type="button"
               class="btn btn-success"
               data-dismiss="modal"
@@ -104,40 +83,27 @@ import data, {
 @Component({})
 export default class SettingsComponent extends Vue {
   private settings: Settings = {
-    vibrationType: VibrationType.long,
-    timeInterval: 60000, //seconds
-    isSnoozed: false
+    timeInterval: 15 //seconds
   };
 
   constructor() {
     super();
-    data.register(ENDPOINTS.GET_SETTINGS, this.updateSettings);
+    data.register(ENDPOINTS.GET_INTERVAL, this.updateInterval);
   }
 
-  private getSettings() {
-    data.getSettings();
+  private getInterval() {
+    data.getInterval();
   }
 
-  private updateSettings(settings: Settings) {
-    this.settings = settings;
+  private updateInterval(intervalTime: number) {
+    this.settings.timeInterval = intervalTime;
   }
 
-  private setSettings() {
-    data.setSettings(this.settings);
+  private setInterval() {
+    data.setInterval(this.settings.timeInterval);
   }
 
-  private getSnoozeText() {
-    if (this.settings.isSnoozed) {
-      return "Wake up!!";
-    } else {
-      return "Snooze";
-    }
-  }
-
-  private snooze() {
-    data.snooze(this.settings.isSnoozed);
-    data.getSettings();
-  }
+  private snooze() {}
 
   private recalibrate() {
     data.recalibrate();
