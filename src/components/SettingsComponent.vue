@@ -44,16 +44,19 @@
               v-on:click="snooze(30)"
               type="button"
               class="btn btn-primary btn-block"
+              data-dismiss="modal"
             >Snooze: 30 seconds</button>
             <button
               v-on:click="recalibrate()"
               type="button"
               class="btn btn-primary btn-block"
+              data-dismiss="modal"
             >Re-calibrate sensors</button>
             <button
               v-on:click="shutdown()"
               type="button"
               class="btn btn-primary btn-block"
+              data-dismiss="modal"
             >Shut down</button>
           </div>
           <div class="modal-footer">
@@ -77,7 +80,8 @@ import Component from "vue-class-component";
 import data, {
   Settings,
   VibrationType,
-  ENDPOINTS
+  ENDPOINTS,
+  SIGNALS
 } from "../services/websocket";
 
 @Component({})
@@ -89,6 +93,15 @@ export default class SettingsComponent extends Vue {
   constructor() {
     super();
     data.register(ENDPOINTS.GET_INTERVAL, this.updateInterval);
+    data.register(SIGNALS.DONE, this.unfreezeUI);
+  }
+
+  private unfreezeUI() {
+    // enable settings button
+  }
+
+  private freezeUI() {
+    // disable settings button
   }
 
   private getInterval() {
@@ -101,23 +114,22 @@ export default class SettingsComponent extends Vue {
 
   private setInterval() {
     data.setInterval(this.settings.timeInterval);
+    this.freezeUI();
   }
 
   private snooze(sleepyTime: number) {
     data.snooze(sleepyTime);
-    // dismiss modal and disable Settings button
-
-  setTimeout(() => {
-      // enable Settings button
-    }, sleepyTime*1000);
+    this.freezeUI();
   }
 
   private recalibrate() {
     data.recalibrate();
+    this.freezeUI();
   }
 
   private shutdown() {
     data.shutdown();
+    this.freezeUI();
   }
 }
 </script>

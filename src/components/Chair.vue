@@ -66,6 +66,7 @@
         <div class="col"></div>
       </div>
     </div>
+    <h3 class="postureType">{{ sensorData.words }}</h3>
   </div>
 </template>
 
@@ -108,11 +109,14 @@ export default class Chair extends Vue {
     sTopL: 2,
     sTopR: 2,
     sBtmL: 2,
-    sBtmR: 2
+    sBtmR: 2,
+    words: ""
   };
 
   private parseSensorData(sData: string) {
-    var parsedString = sData.split(" ", 8);
+    // string format: [0, 0, 0, 0, 0, 0, 0, 0] Posture type"
+    var postureWords = sData.slice(25);
+    var parsedString = sData.slice(1,23).split(", ", 8);
     this.sensorData.bTopL = Number(parsedString[5]);
     this.sensorData.bTopR = Number(parsedString[4]);
     this.sensorData.bBtmL = Number(parsedString[7]);
@@ -121,6 +125,7 @@ export default class Chair extends Vue {
     this.sensorData.sTopR = Number(parsedString[3]);
     this.sensorData.sBtmL = Number(parsedString[0]);
     this.sensorData.sBtmR = Number(parsedString[1]);
+    this.sensorData.words = postureWords;
   }
 
   private getColor(sensorVal: number) {
@@ -159,5 +164,11 @@ export default class Chair extends Vue {
   width: 100% !important;
   width: 400px;
 }
+
+.postureType {
+  text-align: center;
+  padding: 20px;
+}
+
 </style>
 

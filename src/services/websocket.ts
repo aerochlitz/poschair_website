@@ -13,6 +13,7 @@ export interface SensorData {
     sTopR: number;
     sBtmL: number;
     sBtmR: number;
+    words: string;
 }
 
 export enum VibrationType {
@@ -36,7 +37,8 @@ export const ENDPOINTS = {
 
 export const SIGNALS = {
     ERROR: 'error',
-    SENSOR_DATA: 'sensorData'
+    SENSOR_DATA: 'sensorData',
+    DONE: 'done'
 };
 
 class DataService {
