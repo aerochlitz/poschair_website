@@ -37,16 +37,16 @@
                 class="custom-select"
                 id="inputGroupSelectPostureInterval"
               >
-                <option value="15">15 seconds</option>
-                <option value="30">30 seconds</option>
+                <option value="10">10 seconds</option>
+                <option value="20">20 seconds</option>
               </select>
             </div>
             <button
-              v-on:click="snooze(30)"
+              v-on:click="snooze(15)"
               type="button"
               class="btn btn-primary btn-block"
               data-dismiss="modal"
-            >Snooze: 30 seconds</button>
+            >Snooze: 15 seconds</button>
             <button
               v-on:click="recalibrate()"
               type="button"
@@ -88,7 +88,7 @@ import data, {
 @Component({})
 export default class SettingsComponent extends Vue {
   private settings: Settings = {
-    timeInterval: 15 //seconds
+    timeInterval: 10 //seconds
   };
 
   constructor() {
@@ -139,6 +139,7 @@ export default class SettingsComponent extends Vue {
   private shutdown() {
     data.shutdown();
     this.freezeUI();
+    // add an Startup button
   }
 }
 </script>

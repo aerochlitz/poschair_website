@@ -83,6 +83,8 @@ export default class Chair extends Vue {
   constructor() {
     super();
     data.register(SIGNALS.SENSOR_DATA, this.sensorString);
+    data.register(SIGNALS.DONE, this.gotDone);
+
 
     // setTimeout(() => {
     //   this.sensorData.bTopL = 1;
@@ -101,6 +103,10 @@ export default class Chair extends Vue {
     this.parseSensorData(sData);
   }
 
+  private gotDone() {
+    this.sensorData.words = "Waiting for sensor data";
+  }
+
   private sensorData: SensorData = {
     bTopL: 2,
     bTopR: 2,
@@ -110,7 +116,7 @@ export default class Chair extends Vue {
     sTopR: 2,
     sBtmL: 2,
     sBtmR: 2,
-    words: ""
+    words: "Waiting for sensor data"
   };
 
   private parseSensorData(sData: string) {
