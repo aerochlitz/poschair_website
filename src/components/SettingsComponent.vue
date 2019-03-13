@@ -4,6 +4,7 @@
       v-on:click="getInterval()"
       type="button"
       class="btn btn-primary"
+      id="settingsBtn"
       data-toggle="modal"
       data-target="#settingsModal"
     >Settings</button>
@@ -98,10 +99,18 @@ export default class SettingsComponent extends Vue {
 
   private unfreezeUI() {
     // enable settings button
+    var btn = document.getElementById("settingsBtn");
+    if (btn) {
+      btn.removeAttribute("disabled");
+    }
   }
 
   private freezeUI() {
     // disable settings button
+    var btn = document.getElementById("settingsBtn");
+    if (btn) {
+      btn.setAttribute("disabled", "");
+    }
   }
 
   private getInterval() {
