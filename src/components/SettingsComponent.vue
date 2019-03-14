@@ -8,6 +8,11 @@
       data-toggle="modal"
       data-target="#settingsModal"
     >Settings</button>
+    <button
+      v-on:click="restartScript()"
+      type="button"
+      class="btn btn-primary"
+      >Restart Script</button>
     <div
       class="modal fade"
       id="settingsModal"
@@ -139,7 +144,10 @@ export default class SettingsComponent extends Vue {
   private shutdown() {
     data.shutdown();
     this.freezeUI();
-    // add an Startup button
+  }
+
+  private restartScript() {
+    data.rerun();
   }
 }
 </script>

@@ -32,7 +32,8 @@ export const ENDPOINTS = {
     SET_INTERVAL: 'setInterval',
     SNOOZE: 'snooze',
     RECALIBRATE: 'recalibrate',
-    SHUTDOWN: 'shutdown'
+    SHUTDOWN: 'shutdown',
+    RERUN_SCRIPT: 'rerunScript'
 };
 
 export const SIGNALS = {
@@ -72,6 +73,10 @@ class DataService {
 
     public shutdown = () => {
         return this.send(ENDPOINTS.SHUTDOWN);
+    }
+
+    public rerun = () => {
+        return this.send(ENDPOINTS.RERUN_SCRIPT);
     }
 
     // do something when the backend sends a signal. For example on error
