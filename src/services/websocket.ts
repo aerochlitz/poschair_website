@@ -39,7 +39,8 @@ export const ENDPOINTS = {
 export const SIGNALS = {
     ERROR: 'error',
     SENSOR_DATA: 'sensorData',
-    DONE: 'done'
+    DONE: 'done',
+    SCRIPT_READY: 'scriptReady'
 };
 
 class DataService {

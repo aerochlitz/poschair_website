@@ -79,23 +79,11 @@ import data, { SIGNALS, SensorData } from "../services/websocket";
 /* b: back, s: seat */
 export default class Chair extends Vue {
 
-
   constructor() {
     super();
     data.register(SIGNALS.SENSOR_DATA, this.sensorString);
     data.register(SIGNALS.DONE, this.gotDone);
-
-
-    // setTimeout(() => {
-    //   this.sensorData.bTopL = 1;
-    //   this.sensorData.bTopR = 1;
-    //   this.sensorData.bBtmL = 0;
-    //   this.sensorData.bBtmR = 0;
-    //   this.sensorData.sTopL = 0;
-    //   this.sensorData.sTopR = 0;
-    //   this.sensorData.sBtmL = 1;
-    //   this.sensorData.sBtmR = 1;
-    // }, 1000);
+    data.register(SIGNALS.SCRIPT_READY, this.gotDone);
   }
 
   private sensorString(sData: string) {

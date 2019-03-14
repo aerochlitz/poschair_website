@@ -12,7 +12,8 @@
       v-on:click="restartScript()"
       type="button"
       class="btn btn-primary"
-      >Restart Script</button>
+      id="restartBtn"
+    >Restart Script</button>
     <div
       class="modal fade"
       id="settingsModal"
@@ -100,21 +101,27 @@ export default class SettingsComponent extends Vue {
     super();
     data.register(ENDPOINTS.GET_INTERVAL, this.updateInterval);
     data.register(SIGNALS.DONE, this.unfreezeUI);
+    data.register(SIGNALS.SCRIPT_READY, this.unfreezeUI);
   }
 
   private unfreezeUI() {
     // enable settings button
-    var btn = document.getElementById("settingsBtn");
-    if (btn) {
-      btn.removeAttribute("disabled");
+    var btn1 = document.getElementById("settingsBtn");
+    var btn2 = document.getElementById("restartBtn");
+
+    if (btn1 && btn2) {
+      btn1.removeAttribute("disabled");
+      btn2.removeAttribute("disabled");
     }
   }
 
   private freezeUI() {
     // disable settings button
-    var btn = document.getElementById("settingsBtn");
-    if (btn) {
-      btn.setAttribute("disabled", "");
+    var btn1 = document.getElementById("settingsBtn");
+    var btn2 = document.getElementById("restartBtn");
+    if (btn1 && btn2) {
+      btn1.setAttribute("disabled", "");
+      btn2.setAttribute("disabled", "");
     }
   }
 
@@ -143,10 +150,15 @@ export default class SettingsComponent extends Vue {
 
   private shutdown() {
     data.shutdown();
-    this.freezeUI();
+    // only disable "Settings" button
+    var btn1 = document.getElementById("settingsBtn");
+    if (btn1) {
+      btn1.setAttribute("disabled", "");
+    }
   }
 
   private restartScript() {
+    this.freezeUI();
     data.rerun();
   }
 }
