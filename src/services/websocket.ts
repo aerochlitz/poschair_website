@@ -44,7 +44,7 @@ export const SIGNALS = {
 };
 
 class DataService {
-    private ws: WebSocket = new WebSocket('ws://localhost:8080'); // Server path
+    private ws: WebSocket = new WebSocket('ws://192.168.0.44:8080'); // Server path
     private connected: Promise<any> = Promise.resolve();
 
     private callbacks: { [key: string]: Array<(...params: any[]) => void> } = {};
